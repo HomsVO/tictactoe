@@ -9,6 +9,6 @@ const SocketManager = require('./SocketManger');
 
 server.listen(port);
 
-app.use(express.static(path.join(__dirname, 'client/public')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 io.on('connection', SocketManager);
