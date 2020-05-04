@@ -66,7 +66,7 @@ class Room {
             ['','',''],
             ['','',''],
         ];
-        this.turn = 'X';
+        this.turn = (Math.random())?"X":"O";
         this.moves = 0;
         this.end = false;
         return this.gameState();
