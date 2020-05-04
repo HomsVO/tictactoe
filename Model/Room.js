@@ -1,4 +1,4 @@
-const combinations = require('./../winCombination.json');
+const combinations = require('./../combination.json');
 
 class Room {
     constructor(props){      
@@ -13,23 +13,23 @@ class Room {
             ['','',''],
         ];
         this.turn = 'X';
-        this.moveCounter = 0;
+        this.moves = 0;
+        this.end = '';
     }
 
     gameState () {
         return {
             grid: this.grid,
             turn: this.turn,
-            end: this.endGame()
+            end: this.end
         }
     }
     makeMove (row, cell ,userId) {
         let symbol = this.userStatus(userId);
         this.grid[row][cell] = symbol;
-        this.moveCounter++;
-        this.checkWinCombination();
+        this.moves++;
+        this.end = this.endGame();
         this.nextTurn();
-        return this.grid;
     }
     nextTurn () {
         this.turn = (this.turn === "X")?"O":"X";
@@ -55,15 +55,9 @@ class Room {
         this.users = this.users.filter((u)=> u !== userId);
     }
     userStatus (userId){
-        if(this.S.includes(userId)){
-            return "S";
-        }
-        if(userId === this.X){
-            return "X"
-        }
-        if(userId === this.O){
-            return "O"
-        }
+        if(this.S.includes(userId)) return "S";
+        if(userId === this.X) return "X";
+        if(userId === this.O) return "O";
     }
 
     restart (){
@@ -73,20 +67,17 @@ class Room {
             ['','',''],
         ];
         this.turn = 'X';
-        this.moveCounter = 0;
+        this.moves = 0;
+        this.end = false;
         return this.gameState();
     }
     endGame () {
-        if(this.checkWinCombination()){
-            return "Победил " + this.turn;
-        }
-        if(this.moveCounter === 9){
-            return "Ничья"
-        }
-        return '';
+        if(this.checkWinCombination()) return this.turn;
+        if(this.moves === 9) return 'Ничья'
+        return false;
     }
     checkWinCombination () {
-        if(this.moveCounter < 3) return false;
+        if(this.moves < 3) return false;
 
         let win = false;
         let counter = 0;
@@ -100,6 +91,8 @@ class Room {
             if(counter === 3){
                 win = true;
                 break;
+            }else{
+                counter = 0;
             }
         }
 

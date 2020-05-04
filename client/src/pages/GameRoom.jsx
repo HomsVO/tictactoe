@@ -32,6 +32,7 @@ function GameRoom(props) {
     const restart = () => socket.emit('restart');
 
     const clickOnCell = (rowIndex,elementIndex) =>{
+      if(end) return false;
       if(status === 'S'){
         Notification.warning({
           title: 'Внимание',
@@ -74,8 +75,7 @@ function GameRoom(props) {
           <p className="h5 mb-2">Вы {status}, Ход {turn}</p>
           <button className="btn btn-success my-2" onClick={restart}>Рестарт</button>
           {end && 
-            <p>Игра окончена {end}</p>
-
+            <p>Игра окончена, победитель {end}</p>
           }
           <Grid grid={grid} clickOnCell={clickOnCell} />
       </div>
