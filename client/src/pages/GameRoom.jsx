@@ -8,7 +8,7 @@ import 'mdbreact/dist/css/mdb.css';
 import { useState } from 'react';
 import Grid from '../components/Grid';
 
-const socket = io.connect('http://localhost:8000/');
+const socket = io.connect('/');
 
 function GameRoom(props) {
     const room = props.match.params.room
