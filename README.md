@@ -1,5 +1,5 @@
 # TTT-SocketIo
-#tic-tac-toe on reactjs express socket.io
+#Крестики-Нолики на reactjs express socket.io
 
 
 deploy on heroku : 
